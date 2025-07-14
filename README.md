@@ -47,7 +47,7 @@ Tambahan jika ingin melakukan logging dalam file php lainnya seperti controller 
         $context = array(
             'request' => $request->all(),
             'response' => $this->extractResponseContent($response),
-            'processing_time' => $duration, // Convert to milliseconds
+            'processing_time' => $duration,
         );
         Log::channel('http')->info("Request Log", $context);
 ```

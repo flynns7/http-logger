@@ -67,7 +67,7 @@ class HttpLogHandler extends AbstractProcessingHandler
                     "endpoint" =>  isset($context['endpoint']) ? $context['endpoint'] : $request->fullUrl(),
                     "payload" =>  isset($context['request']) ? $context['request'] : $request->all(),
                 ],
-                "response" =>  isset($context['response']) ? $context['response'] : []
+                "response" =>  isset($context['response']) ? $context['response'] : ["message" => $message]
             ];
             Http::post($this->endpoint, $payload);
         } catch (\Throwable $e) {
