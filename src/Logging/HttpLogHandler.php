@@ -69,7 +69,14 @@ class HttpLogHandler extends AbstractProcessingHandler
                 ],
                 "response" =>  isset($context['response']) ? $context['response'] : ["message" => $message]
             ];
-            Http::post($this->endpoint, $payload);
+            $response = Http::post($this->endpoint, $payload);
+            if($response->status() != 200 || $response->json('code') != 200) {
+                Log::error('Failed to log HTTP request', [
+                    'status' => $response->status(),
+                    'response' => $response->body(),
+                    'payload' => $payload
+                ]);
+            }
         } catch (\Throwable $e) {
             Log::error('Failed to log HTTP request', [
                 'error' => $e->getMessage()
