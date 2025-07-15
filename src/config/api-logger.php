@@ -5,5 +5,10 @@ return [
     'service' => env('LOG_SERVICE_NAME', 'payment-gateway'),
     'userId' => env('LOG_USER_ID', 'user-10293'),
     'userType' => env('LOG_USER_TYPE', 'merchant'),
-    'actionNameBy' => env('LOG_ACTION_NAME_BY', "route_name"),
+    //actionNameBy : 
+    // route sample Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+    // -route_name => users.edit
+    // -action => App\Http\Controllers\UserController@edit
+    // -uri => users/{id}/edit
+    'actionNameBy' => env('LOG_ACTION_NAME_BY', "route_name"), 
 ];

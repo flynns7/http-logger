@@ -54,7 +54,7 @@ class HttpLogHandler extends AbstractProcessingHandler
                 "environment" =>  env('APP_ENV', 'production'),
                 "processing_time_ms" =>  $request->has('processing_time') ? $request->input('processing_time') : 0,
                 "action" =>  $action[$this->actionNameBy] ?? $action['route_name'],
-                "result" =>  $level == 'INFO' ? 'success' : 'failed',
+                "result" =>  (  strtoupper($level) == 'INFO') ? 'SUCCESS' : $level,
                 "user" =>  [
                     "user_id" =>  $this->userId,
                     "user_type" =>  $this->userType,
