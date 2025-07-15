@@ -5,7 +5,7 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "flynns7\\HttpLogger\\": "src/"
+      "Flynns7\\HttpLogger\\": "src/"
     }
   },
   "extra": {
