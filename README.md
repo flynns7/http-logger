@@ -8,7 +8,7 @@ Setelah composer terinstall lakukan perintah
 dalam folder project laravel
 
 ## Pentujuk Penggunaan
-- Langkah selanjutnya pulish file config dengan lakukan perintah "php artisan vendor:publish --tag=config" kemudian nanti akan muncul file app-logger.php di config\api-logger.php dan sesuaikan variable constant dalam file tersebut.
+- Langkah selanjutnya publish file config dengan lakukan perintah "php artisan vendor:publish --tag=config" kemudian nanti akan muncul file app-logger.php di config\api-logger.php dan sesuaikan variable constant dalam file tersebut.
 
 - Tahap selanjutnya adalah menambah channel "http" log pada file config/logging.php 
 ```
