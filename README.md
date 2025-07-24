@@ -51,3 +51,13 @@ Tambahan jika ingin melakukan logging dalam file php lainnya seperti controller 
         );
         Log::channel('http')->info("Request Log", $context);
 ```
+
+untuk versi v0.1.0 ada tambahan untuk bisa mengubah case name sesuai kebuthan di table route_logs_mapping, tetapi sebelum itu wajib menjalankan artisan command sebagai berikut : 
+```
+php artisan http-logger:install
+```
+
+setelah mengubah name case di table lakukan perintahan sinkrosisasi sebagai berikut
+```
+http-logger:sync-routes-mapping
+```
