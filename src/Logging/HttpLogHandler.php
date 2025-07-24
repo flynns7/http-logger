@@ -45,16 +45,16 @@ class HttpLogHandler extends AbstractProcessingHandler
             'action'     => $request->route()->getActionName(),
             'uri'        => $request->route()->uri(),
         ];
-
+        $actionName = isset(cache('http_logger_routes')[$action['uri']]) ? cache('http_logger_routes')[$action['uri']]->case_name : $action['action'];
         try {
             $payload = [
                 'timestamp' => now()->toIso8601String(),
-                "event_id" =>  $this->eventId,
+                "log_event" =>  $level,
                 "service" =>  $this->serviceName,
                 "environment" =>  env('APP_ENV', 'production'),
                 "processing_time_ms" =>  $request->has('processing_time') ? $request->input('processing_time') : 0,
-                "action" =>  empty($action[$this->actionNameBy]) ? $action['action'] : $action[$this->actionNameBy],
-                "result" =>  (  strtoupper($level) == 'INFO') ? 'SUCCESS' : $level,
+                "action" =>  $actionName,
+                "result" =>  (  strtoupper($level) == 'INFO') ? 'SUCCESS' : 'FAILED',
                 "user" =>  [
                     "user_id" =>  $this->userId,
                     "user_type" =>  $this->userType,
