@@ -46,6 +46,13 @@ class HttpLogHandler extends AbstractProcessingHandler
             'uri'        => $request->route()->uri(),
         ];
         $actionName = isset(cache('http_logger_routes')[$action['uri']]) ? cache('http_logger_routes')[$action['uri']]->case_name : $action['action'];
+        $user = $request->user();
+        $this->userId = "unknown";
+        if ($user) {
+            $userId = $user->id;
+            $userName = $user->name;
+            $this->userId = "$userName - $userId";
+        }
         try {
             $payload = [
                 'timestamp' => now()->toIso8601String(),
@@ -54,7 +61,7 @@ class HttpLogHandler extends AbstractProcessingHandler
                 "environment" =>  env('APP_ENV', 'production'),
                 "processing_time_ms" =>  $request->has('processing_time') ? $request->input('processing_time') : 0,
                 "action" =>  $actionName,
-                "result" =>  (  strtoupper($level) == 'INFO') ? 'SUCCESS' : 'FAILED',
+                "result" => (strtoupper($level) == 'INFO') ? 'SUCCESS' : 'FAILED',
                 "user" =>  [
                     "user_id" =>  $this->userId,
                     "user_type" =>  $this->userType,
@@ -70,7 +77,7 @@ class HttpLogHandler extends AbstractProcessingHandler
                 "response" =>  isset($context['response']) ? $context['response'] : ["message" => $message]
             ];
             $response = Http::post($this->endpoint, $payload);
-            if($response->status() != 200 || $response->json('code') != 200) {
+            if ($response->status() != 200 || $response->json('code') != 200) {
                 Log::error('Failed to log HTTP request', [
                     'status' => $response->status(),
                     'response' => $response->body(),
