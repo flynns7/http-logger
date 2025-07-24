@@ -21,9 +21,18 @@ class InstallHttpLoggerCommand extends Command
         $this->info(trim(Artisan::output()));
 
         $this->info('Seeding route data...');
-        Artisan::call('db:seed', [
-            '--class' => \Flynns7\HttpLogger\Database\Seeders\RoutesLogSeeder::class
-        ]);
+        $seederPath = base_path('vendor/flynns7/http-logger/src/database/seeders/RoutesLogSeeder.php');
+        if (file_exists($seederPath)) {
+            require_once $seederPath;
+
+            if (class_exists('RoutesLogSeeder')) {
+                (new \RoutesLogSeeder)->run();
+            } else {
+                $this->error("RoutesLogSeeder class not found in file.");
+            }
+        } else {
+            $this->error("RoutesLogSeeder file not found.");
+        }
         $this->info(trim(Artisan::output()));
 
         $this->info('✅ HTTP Logger is installed and ready!');

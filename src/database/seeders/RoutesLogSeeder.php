@@ -1,6 +1,6 @@
 <?php
 // src/database/seeders/RoutesLogSeeder.php
-namespace Flynns7\HttpLogger\Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
