@@ -47,7 +47,6 @@ class HttpLogHandler extends AbstractProcessingHandler
         ];
         $actionName = isset(cache('http_logger_routes')[$action['uri']]) ? cache('http_logger_routes')[$action['uri']]->case_name : $action['action'];
         $user = $request->user();
-        $this->userId = "unknown";
         if ($user) {
             $userId = $user->id;
             $userName = $user->name;
