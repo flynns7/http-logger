@@ -61,3 +61,15 @@ setelah mengubah name case di table lakukan perintahan sinkrosisasi sebagai beri
 ```
 http-logger:sync-routes-mapping
 ```
+
+Tambahan jika ingin menggunakan langsung tanpa middleware bisa pakai contoh dibawah ini
+```
+
+        $context = array(
+            'request' => $request->all(),
+            'response' => $this->extractResponseContent($response),
+            'processing_time' => $duration, // Convert to milliseconds
+            'actionName' => 'custom action name'
+        );
+        Log::channel('http')->info("Request Log", $context);
+```

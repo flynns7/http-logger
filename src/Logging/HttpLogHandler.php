@@ -52,6 +52,9 @@ class HttpLogHandler extends AbstractProcessingHandler
             $userName = $user->name;
             $this->userId = "$userName - $userId";
         }
+        if(isset($context['actionName']) && !empty($context['actionName'])){
+            $actionName = $context['actionName'];
+        }
         try {
             $payload = [
                 'timestamp' => now()->toIso8601String(),
